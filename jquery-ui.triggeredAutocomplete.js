@@ -3,13 +3,15 @@
  * triggeredAutocomplete (jQuery UI autocomplete widget)
  * 2012 by Hawkee.com (hawkee@gmail.com)
  *
- * Version 1.4.5
+ * Version 1.4.6
  * 
  * Requires jQuery 1.7 and jQuery UI 1.8
  *
  * Dual licensed under MIT or GPLv2 licenses
  *   http://en.wikipedia.org/wiki/MIT_License
  *   http://en.wikipedia.org/wiki/GNU_General_Public_License
+ *
+ * Forked by ASPgems - http://aspgems.com/
  *
 */
 
@@ -19,7 +21,8 @@
 		options: {
 			trigger: "@",
 			allowDuplicates: true,
-			maxLength: 0
+			maxLength: 0,
+			minLength: 1
 		},
 
 		_create:function() {
@@ -159,7 +162,9 @@
 
 				if(this.stopIndex == contents.lastIndexOf(this.options.trigger) && term.length > this.stopLength) { term = ''; }
 			
-				if (term.length > 0 && (!this.options.maxLength || term.length <= this.options.maxLength)) {
+				if (term.length > 0 &&
+						(!this.options.maxLength || term.length <= this.options.maxLength) &&
+						term.length >= this.options.minLength) {
 					// Updates the hidden field to check if a name was removed so that we can put them back in the list.
 					this.updateHidden();
 					return this._search(term);
